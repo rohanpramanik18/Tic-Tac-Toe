@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tictactoe/routes.dart';
+import 'package:tictactoe/screens/resultpage.dart';
 
 import 'design.dart';
 

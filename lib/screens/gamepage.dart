@@ -43,12 +43,7 @@ class _GamePageState extends State<GamePage> {
 
   boxClicked(id) {
     counter++;
-    if (counter >= 9) {
-      isDraw = true;
-      ResultPage.resultList.add(0);
-      showDrawDialog(context);
-      gameEnd = true;
-    }
+
     if (xturn) {
       boxes[id]["checked"] = true;
       boxes[id]["xchecked"] = true;
@@ -77,6 +72,13 @@ class _GamePageState extends State<GamePage> {
         }
       }
       showWinDialog(context);
+      gameEnd = true;
+    }
+
+    if (counter >= 9 && !(isWin)) {
+      isDraw = true;
+      ResultPage.resultList.add(0);
+      showDrawDialog(context);
       gameEnd = true;
     }
   }
