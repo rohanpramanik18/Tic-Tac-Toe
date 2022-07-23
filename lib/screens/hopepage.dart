@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
       body: Center(
         child: SingleChildScrollView(
           child: Container(
-            height: 350,
+            height: 370,
             width: 300,
             alignment: Alignment.center,
             decoration: BoxDecoration(

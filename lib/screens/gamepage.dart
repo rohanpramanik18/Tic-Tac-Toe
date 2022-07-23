@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tictactoe/database/databaseHelper.dart';
+import 'package:tictactoe/database/resultModel.dart';
 import 'package:tictactoe/routes.dart';
 import 'package:tictactoe/screens/design.dart';
 import 'package:tictactoe/screens/hopepage.dart';
@@ -12,6 +14,51 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> {
+  DBHelper? dbHelper;
+
+  late String resultString;
+  late String year;
+  late String month;
+  late String date;
+  late String hours;
+  late String minute;
+
+  late DateTime? day = null;
+  late TimeOfDay? time = null;
+
+  void pushData(String rstr) {
+    resultString = rstr;
+    day = DateTime.now();
+    time = TimeOfDay.now();
+    date = (day!.day < 10) ? "0" + day!.day.toString() : day!.day.toString();
+    month =
+        (day!.month < 10) ? "0" + day!.month.toString() : day!.month.toString();
+    year = day!.year.toString();
+    hours =
+        (time!.hour < 10) ? "0" + time!.hour.toString() : time!.hour.toString();
+    minute = (time!.minute < 10)
+        ? "0" + time!.minute.toString()
+        : time!.minute.toString();
+
+    pushResult();
+  }
+
+  void pushResult() async {
+    ResultModel resdata = new ResultModel(
+        resultString: this.resultString,
+        date: this.date,
+        month: this.month,
+        year: this.year,
+        hours: this.hours,
+        minute: this.minute);
+
+    dbHelper!.insert(resdata).then((value) {
+      print("Pushed in db successfully !!!");
+    }).onError((error, stackTrace) {
+      print(error.toString());
+    });
+  }
+
   List boxes = [
     {},
     {"id": 1, "checked": false, "xchecked": false, "ochecked": false},
@@ -39,6 +86,7 @@ class _GamePageState extends State<GamePage> {
     firstChance = TossPage.firstPlay;
     secondChance = TossPage.secondPlay;
     gameEnd = false;
+    dbHelper = DBHelper.instance;
   }
 
   boxClicked(id) {
@@ -60,15 +108,19 @@ class _GamePageState extends State<GamePage> {
       isWin = true;
       if (winCase <= 8) {
         if (firstChance == HomePage.player1) {
+          pushData("${firstChance}  beat  ${secondChance}");
           ResultPage.resultList.add(1);
         } else {
           ResultPage.resultList.add(2);
+          pushData("${firstChance}  beat  ${secondChance}");
         }
       } else {
         if (secondChance == HomePage.player1) {
           ResultPage.resultList.add(1);
+          pushData("${secondChance} +  beat  ${firstChance}");
         } else {
           ResultPage.resultList.add(2);
+          pushData("${secondChance} +  beat  ${firstChance}");
         }
       }
       showWinDialog(context);
@@ -78,6 +130,7 @@ class _GamePageState extends State<GamePage> {
     if (counter >= 9 && !(isWin)) {
       isDraw = true;
       ResultPage.resultList.add(0);
+      pushData("${firstChance}  tied with  ${secondChance}");
       showDrawDialog(context);
       gameEnd = true;
     }
