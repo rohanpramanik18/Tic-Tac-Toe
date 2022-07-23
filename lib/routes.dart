@@ -3,4 +3,5 @@ class MyRoutes {
   static String routeToss = "/toss";
   static String routeGame = "/game";
   static String routeResult = "/result";
+  static String routealldbresult = "/alldbresult";
 }

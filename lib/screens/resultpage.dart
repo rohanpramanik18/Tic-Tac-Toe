@@ -481,6 +481,35 @@ class _ResultPageState extends State<ResultPage> {
                   )),
             ),
           ),
+          SizedBox(
+            height: 10,
+          ),
+          InkWell(
+            onTap: () => {
+              Navigator.pushNamed(context, MyRoutes.routealldbresult),
+            },
+            child: Container(
+              height: 50,
+              width: 200,
+              child: Text(
+                "View all results",
+                style: GoogleFonts.alike(
+                    textStyle: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 23,
+                  color: Theme.of(context).primaryColor,
+                )),
+              ),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                  color: Colors.cyan,
+                  borderRadius: BorderRadius.all(Radius.circular(30)),
+                  border: Border.all(
+                    color: Colors.white,
+                    width: 3,
+                  )),
+            ),
+          ),
         ],
       ),
     );

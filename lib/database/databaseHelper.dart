@@ -54,7 +54,7 @@ class DBHelper {
     return resultModel;
   }
 
-  Future<List<ResultModel>> getTaskList() async {
+  Future<List<ResultModel>> getResultList() async {
     var dbClient = await this.db;
     final List<Map<String, Object?>> querryResult =
         await dbClient!.query("newresTable");

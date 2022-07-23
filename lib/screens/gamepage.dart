@@ -117,10 +117,10 @@ class _GamePageState extends State<GamePage> {
       } else {
         if (secondChance == HomePage.player1) {
           ResultPage.resultList.add(1);
-          pushData("${secondChance} +  beat  ${firstChance}");
+          pushData("${secondChance}  beat  ${firstChance}");
         } else {
           ResultPage.resultList.add(2);
-          pushData("${secondChance} +  beat  ${firstChance}");
+          pushData("${secondChance}  beat  ${firstChance}");
         }
       }
       showWinDialog(context);
